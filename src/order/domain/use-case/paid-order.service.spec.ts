@@ -15,7 +15,7 @@ describe('paid order', () => {
     },
   } as any as OrderRepositoryInterface;
 
-  order.status = OrderStatus.SHIPPING_ADDRESS_SET;
+  order.setShippingAddress('123 Main St');
 
   it('should update an order with a payment status', async () => {
     const paidOrderService = new PaidOrderService(orderRepositoryMock);
