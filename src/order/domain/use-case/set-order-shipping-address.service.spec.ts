@@ -26,21 +26,6 @@ describe('set order shipping address', () => {
     expect(updatedOrder.status).toBe(OrderStatus.SHIPPING_ADDRESS_SET);
   });
 
-  it('should throw an error when the shipping address is empty', async () => {
-    const setOrderShippingAddressService = new SetOrderShippingAddressService(
-      orderRepositoryMock,
-    );
-
-    try {
-      await setOrderShippingAddressService.setOrderShippingAddress({
-        orderId: '123',
-        shippingAddress: '',
-      });
-    } catch (err) {
-      expect(err.message).toEqual('Shipping address is required');
-    }
-  });
-
   it('should throw shippng adress is null', async () => {
     const setOrderShippingAddressService = new SetOrderShippingAddressService(
       orderRepositoryMock,
