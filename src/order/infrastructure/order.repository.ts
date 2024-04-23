@@ -12,10 +12,11 @@ export default class OrderRepository
   }
 
   async findById(id: string): Promise<Order | null> {
-    const queryBuilder = this.createQueryBuilder('order');
-
+    const queryBuilder = this.createQueryBuilder('order').leftJoinAndSelect(
+      'order.orderItems',
+      'orderItems',
+    );
     queryBuilder.where('order.id = :id', { id });
-
     return queryBuilder.getOne();
   }
 

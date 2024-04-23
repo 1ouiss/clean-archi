@@ -13,6 +13,7 @@ export class Order {
   constructor(customerName: string, orderItems: OrderItem[]) {
     this.customerName = customerName;
     this.orderItems = orderItems;
+    this.createdAt = new Date();
 
     this.status = OrderStatus.CART;
   }
@@ -23,7 +24,9 @@ export class Order {
   @PrimaryGeneratedColumn()
   id: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   price: number;
 
   @Column()
@@ -43,7 +46,9 @@ export class Order {
   @Column()
   status: OrderStatus;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   paidAt: Date | null;
 
   getOrderTotalPrice(): number {
@@ -76,5 +81,16 @@ export class Order {
 
     this.status = OrderStatus.PAID;
     this.paidAt = new Date();
+  }
+
+  addOrderItem(orderItem: OrderItem) {
+    if (!orderItem) {
+      throw new Error('Order item is required');
+    }
+    if (orderItem.quantity > 2) {
+      throw new Error('Quantity must be less than or equal to 10');
+    }
+
+    this.orderItems.push(orderItem);
   }
 }
