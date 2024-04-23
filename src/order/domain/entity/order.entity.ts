@@ -91,6 +91,19 @@ export class Order {
       throw new Error('Quantity must be less than or equal to 10');
     }
 
-    this.orderItems.push(orderItem);
+    const existingOrderItem = this.orderItems.find(
+      (item) => item.productName === orderItem.productName,
+    );
+    if (existingOrderItem) {
+      existingOrderItem.quantity += orderItem.quantity;
+    } else {
+      this.orderItems.push(
+        new OrderItem(
+          orderItem.productName,
+          orderItem.quantity,
+          orderItem.price,
+        ),
+      );
+    }
   }
 }

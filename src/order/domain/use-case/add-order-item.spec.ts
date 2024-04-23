@@ -12,9 +12,6 @@ describe('add order item', () => {
     save(order: Order) {
       return order;
     },
-    update(order: Order) {
-      return order;
-    },
   } as unknown as OrderRepositoryInterface;
 
   it('it should update order with a new order item', async () => {
